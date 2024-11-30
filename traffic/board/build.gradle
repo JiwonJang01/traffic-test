@@ -18,6 +18,15 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
+springBoot {
+    mainClass = 'com.traffictest.board.BoardApplication' // Replace with your main class' full path
+}
+
+bootJar {
+    // Ensure that the mainClass is set if not already done
+    mainClass = 'com.traffictest.board.BoardApplication' // Replace with your main class' full path
+}
+
 test {
     useJUnitPlatform()
 }

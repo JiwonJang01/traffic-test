@@ -17,12 +17,14 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
-tasks.named('bootJar') {
-    enabled = true
+
+springBoot {
+    mainClass = 'com.traffictest.statistics.StatisticsApplication' // Replace with your main class' full path
 }
 
-tasks.named('jar') {
-    enabled = true
+bootJar {
+    // Ensure that the mainClass is set if not already done
+    mainClass = 'com.traffictest.statistics.StatisticsApplication' // Replace with your main class' full path
 }
 
 test {

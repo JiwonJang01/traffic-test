@@ -1,4 +1,4 @@
-package com.traffictest.statstics;
+package com.traffictest.statistics;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,8 +10,5 @@ public class HealthController {
     public String health(){
         return "health";
     }
-    @GetMapping("/hello")
-    public String hello(){
-        return "hello";
-    }
+
 }

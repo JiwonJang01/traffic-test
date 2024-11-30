@@ -16,18 +16,67 @@ services:
       - MYSQL_USER=traffic
       - MYSQL_PASSWORD=traffic-password
     command: [ '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci' ]
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
 
   statistics-app:
+    ### Option 1 : Use directly build but slow
+#    image: gradle:8.11.1-jdk17
+#    container_name: statistics-app
+#    working_dir: /home/gradle/src
+#    volumes:
+#      - .:/home/gradle/src
+#    command: sh -c "gradle clean build && java -jar statistics/build/libs/statistics.jar"
+    ### Option 2 : Use Local build and just
     build:
       context: statistics
       dockerfile: Dockerfile
     ports:
-      - "8091:8091"
+      - "8091:8191"
     networks:
       - traffic-network
     depends_on:
       - traffic-db
-
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+  board-app:
+    ### Option 1 : Use directly build but slow
+#    image: gradle:8.11.1-jdk17
+#    container_name: board-app
+#    working_dir: /home/gradle/src
+#    volumes:
+#      - .:/home/gradle/src
+#    command: sh -c "gradle clean build && java -jar board/build/libs/board.jar"
+    ### Option 2 : Use Local build and just
+    build:
+      context: board
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8190"
+    networks:
+      - traffic-network
+    depends_on:
+      - traffic-db
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
 networks:
   traffic-network:
     driver: bridge
