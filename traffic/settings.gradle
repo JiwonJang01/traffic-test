@@ -1,5 +1,5 @@
 rootProject.name = 'traffic'
 include 'board'
-include 'statstics'
+include 'statistics'
 include 'common'
 

@@ -2,8 +2,7 @@ plugins {
     id 'java'
 }
 
-bootJar.enabled = false
-
+bootJar.enabled = true
 jar.enabled = true
 
 group = 'com.traffictest'
@@ -16,6 +15,14 @@ repositories {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+tasks.named('bootJar') {
+    enabled = true
+}
+
+tasks.named('jar') {
+    enabled = true
 }
 
 test {
