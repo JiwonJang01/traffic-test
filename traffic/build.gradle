@@ -41,6 +41,14 @@ subprojects {
 		implementation 'org.springframework.boot:spring-boot-starter'
 		implementation 'org.springframework.boot:spring-boot-starter-web'
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+		implementation 'net.datafaker:datafaker:2.4.2'
+
+		runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+		implementation 'org.springframework.boot:spring-boot-starter-actuator'
+		implementation 'org.mariadb.jdbc:mariadb-java-client'
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
 	}
 
 	test {
@@ -48,13 +56,3 @@ subprojects {
 	}
 
 }
-//
-//dependencies {
-//	implementation 'org.springframework.boot:spring-boot-starter'
-//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-//}
-//
-//tasks.named('test') {
-//	useJUnitPlatform()
-//}
