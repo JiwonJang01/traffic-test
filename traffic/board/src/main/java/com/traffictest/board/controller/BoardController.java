@@ -2,7 +2,7 @@ package com.traffictest.board.controller;
 
 import com.traffictest.board.service.BoardInitService;
 import com.traffictest.board.service.BoardService;
-import com.traffictest.common.entity.dto.BoardSummaryDto;
+import com.traffictest.common.dto.BoardSummaryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

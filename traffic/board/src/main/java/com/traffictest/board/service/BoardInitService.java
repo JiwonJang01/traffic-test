@@ -1,6 +1,6 @@
 package com.traffictest.board.service;
 
-import com.traffictest.common.entity.*;
+import com.traffictest.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
-package com.traffictest.common.entity;
+package com.traffictest.entity;
 
-import com.traffictest.common.entity.dto.BoardSummaryDto;
+import com.traffictest.common.dto.BoardSummaryDto;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.traffictest.common.entity;
+package com.traffictest.entity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

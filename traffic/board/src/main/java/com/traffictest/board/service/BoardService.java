@@ -1,9 +1,9 @@
 package com.traffictest.board.service;
 
 
-import com.traffictest.common.entity.Board;
-import com.traffictest.common.entity.BoardRepository;
-import com.traffictest.common.entity.dto.BoardSummaryDto;
+import com.traffictest.entity.Board;
+import com.traffictest.entity.BoardRepository;
+import com.traffictest.common.dto.BoardSummaryDto;
 import lombok.RequiredArgsConstructor;
 import net.datafaker.Faker;
 import org.springframework.stereotype.Service;

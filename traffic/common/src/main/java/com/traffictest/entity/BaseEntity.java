@@ -1,4 +1,4 @@
-package com.traffictest.common.entity;
+package com.traffictest.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

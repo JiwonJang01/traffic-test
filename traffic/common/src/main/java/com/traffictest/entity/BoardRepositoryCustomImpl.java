@@ -1,10 +1,10 @@
-package com.traffictest.common.entity;
+package com.traffictest.entity;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.traffictest.common.entity.dto.BoardSummaryDto;
-import com.traffictest.common.entity.dto.CommentDto;
-import com.traffictest.common.entity.dto.HashTagDto;
+import com.traffictest.common.dto.BoardSummaryDto;
+import com.traffictest.common.dto.CommentDto;
+import com.traffictest.common.dto.HashTagDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;

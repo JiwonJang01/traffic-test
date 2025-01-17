@@ -1,4 +1,4 @@
-package com.traffictest.common.entity.dto;
+package com.traffictest.common.dto;
 
 public record CommentDto(
         Long id,
