@@ -53,6 +53,21 @@ services:
         reservations:
           cpus: '0.5'
           memory: 512M
+  traffic-redis:
+    image: redis:6.2
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - traffic-network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
   ## mariadb
   traffic-db:
     image: mariadb:latest
@@ -87,4 +102,4 @@ networks:
 
 volumes:
   db_data:
-  grafana_data:
+#  grafana_data:
