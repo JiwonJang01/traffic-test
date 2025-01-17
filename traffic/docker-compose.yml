@@ -68,6 +68,25 @@ services:
         reservations:
           cpus: '0.5'
           memory: 512M
+  redis-exporter:
+    image: oliver006/redis_exporter:latest
+    container_name: redis-exporter
+    environment:
+      - REDIS_ADDR=traffic-redis:6379
+    ports:
+      - "9121:9121"
+    depends_on:
+      - traffic-redis
+    volumes:
+      - redis_exporter_data:/var/lib/redis_exporter
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
   ## mariadb
   traffic-db:
     image: mariadb:latest
@@ -96,10 +115,54 @@ services:
         reservations:
           cpus: '0.5'
           memory: 512M
+  mysqld-exporter:
+    image: prom/mysqld-exporter:latest
+    container_name: mysqld-exporter
+    command:
+      - "--mysqld.username=root:mysql_password"
+      - "--mysqld.address=traffic-db:3306"
+    ports:
+      - "9104:9104"
+    networks:
+      - traffic-network
+    volumes:
+      - mysqld_exporter_data:/var/lib/mysqld_exporter
+    depends_on:
+      - traffic-db
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus_data:/var/lib/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - traffic-network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
 networks:
   traffic-network:
     driver: bridge
 
 volumes:
   db_data:
+  prometheus_data:
+  mysqld_exporter_data:
+  redis_exporter_data:
 #  grafana_data:
