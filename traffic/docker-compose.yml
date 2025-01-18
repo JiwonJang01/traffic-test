@@ -156,26 +156,6 @@ services:
         reservations:
           cpus: '0.5'
           memory: 512M
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
-    ports:
-      - "3000:3000"
-    networks:
-      - traffic-network
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-    volumes:
-      - grafana_data:/var/lib/grafana
-    deploy:
-      resources:
-        limits:
-          cpus: '1.0'
-          memory: 1024M
-        reservations:
-          cpus: '0.5'
-          memory: 512M
 networks:
   traffic-network:
     driver: bridge
@@ -185,4 +165,4 @@ volumes:
   prometheus_data:
   mysqld_exporter_data:
   redis_exporter_data:
-  grafana_data:
+#  grafana_data:
