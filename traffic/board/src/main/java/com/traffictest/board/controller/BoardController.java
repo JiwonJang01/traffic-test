@@ -25,9 +25,6 @@ public class BoardController {
         return boardService.findByHashTagAndSubject(hashTag, subjectLike);
     }
     // 5000개 기준 15분 정도 시간 소요
-    // 기본 index 있을 시 200ms 가량
-    // index 추가 시 100ms 가량
-    // fk Drop 시 20sec 이상
     //
     @GetMapping("init-index")
     public long initIndex(@RequestParam int count) {
