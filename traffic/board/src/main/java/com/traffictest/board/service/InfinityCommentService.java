@@ -34,12 +34,10 @@ public class InfinityCommentService {
         userRepository.saveAll(users);
         // 5단계 댓글 생성
         // need fix
-
-        // 5 depth까지 가자.
-        // // 전부다 1단으로 가니까 문제가 되는 것 같다.
         while (counter < count) {
             // make 20 depth;
             List<InfinityComment> infinityComments = new ArrayList<>();
+            // 첫 comment
             InfinityComment comment = InfinityComment.builder()
                     .content("comment" + counter)
                     .writer(users.get(counter++ % 10))
