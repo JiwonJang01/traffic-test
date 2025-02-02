@@ -22,7 +22,6 @@ public class InfinityCommentService {
         return infinityCommentRepository.findCommentHierarchy();
     }
 
-    // suppose 1000;
     public void init(int count) {
         int counter = 0;
         List<User> users = new ArrayList<>();
@@ -34,8 +33,10 @@ public class InfinityCommentService {
         userRepository.saveAll(users);
         // 5단계 댓글 생성
         // need fix
+        // 댓글 대댓
+        //
         while (counter < count) {
-            // make 20 depth;
+            // make 100 depth;
             List<InfinityComment> infinityComments = new ArrayList<>();
             // 첫 comment
             InfinityComment comment = InfinityComment.builder()
