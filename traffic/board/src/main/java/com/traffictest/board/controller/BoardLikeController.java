@@ -23,5 +23,6 @@ public class BoardLikeController {
     @GetMapping("/toggle-transaction")
     public void switchBoardLikeStateTransaction(@RequestParam Long boardId, @RequestParam Long userId) {
         boardLikeService.switchLikeStateWithTransaction(boardId, userId);
+        boardLikeService.switchLikeStateWithTransaction(boardId, userId);
     }
 }
