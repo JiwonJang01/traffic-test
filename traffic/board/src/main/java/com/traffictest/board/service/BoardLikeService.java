@@ -7,6 +7,7 @@ import com.traffictest.entity.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -43,7 +44,7 @@ public class BoardLikeService {
         }
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public void switchLikeStateWithTransaction(Long boardId, Long userId) {
         Optional<Board> boardOptional = boardRepository.findById(boardId);
         if (boardOptional.isEmpty()) {
@@ -68,4 +69,26 @@ public class BoardLikeService {
         }
     }
 
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public void switchLikeStateWithTransactionWithLock(Long boardId, Long userId) {
+        Optional<Board> boardOptional = boardRepository.findWithLock(boardId);
+        if (boardOptional.isEmpty()) {
+            log.error("Not found boardId");
+            return;
+        }
+        Board board = boardOptional.get();
+
+        Optional<BoardLike> boardLikeOptional =
+                boardLikeRepository.findWithLock(boardId, userId);
+        // 좋아요 -;
+        if (boardLikeOptional.isPresent()) {
+            BoardLike boardLike = boardLikeOptional.get();
+            boardRepository.decrementLikeCount(boardId);
+            boardLikeRepository.delete(boardLike);
+        } else {
+            boardRepository.incrementLikeCount(boardId);
+            boardLikeRepository.save(BoardLike.builder()
+                    .board(board).writerId(userId).build());
+        }
+    }
 }
