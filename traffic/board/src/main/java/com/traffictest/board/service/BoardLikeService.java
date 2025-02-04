@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.concurrent.Executors;
 
 @Service
 @Slf4j
@@ -48,6 +49,7 @@ public class BoardLikeService {
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public void switchLikeStateWithTransaction(Long boardId, Long userId) {
+        Executors.newFixedThreadPool(500);
         Optional<Board> boardOptional = boardRepository.findById(boardId);
         if (boardOptional.isEmpty()) {
             log.error("Not found boardId");
@@ -85,9 +87,11 @@ public class BoardLikeService {
         // 좋아요 -;
         if (boardLikeOptional.isPresent()) {
             BoardLike boardLike = boardLikeOptional.get();
+            // 예상보다 빨랐던 속도
             boardRepository.decrementLikeCount(boardId);
             boardLikeRepository.delete(boardLike);
         } else {
+            // 예상보다 빨랐던 속도
             boardRepository.incrementLikeCount(boardId);
             boardLikeRepository.save(BoardLike.builder()
                     .board(board).writerId(userId).build());
@@ -95,7 +99,15 @@ public class BoardLikeService {
     }
 
     public void switchLikeStateWithPublish(Long boardId, Long userId) {
+        switchLikeProcess(boardId, userId);
+        publisher.publish(boardId);
+    }
+    public void switchLikeStateWithAsyncPublish(Long boardId, Long userId) {
+        switchLikeProcess(boardId, userId);
+        publisher.publishAsync(boardId);
+    }
 
+    private void switchLikeProcess(Long boardId, Long userId) {
         Optional<BoardLike> boardLikeOptional =
                 boardLikeRepository.findByBoard_IdAndWriterId(boardId, userId);
         // 좋아요 -;
@@ -112,7 +124,5 @@ public class BoardLikeService {
             boardLikeRepository.save(BoardLike.builder()
                     .board(board).writerId(userId).build());
         }
-        publisher.publish(boardId);
-
     }
 }

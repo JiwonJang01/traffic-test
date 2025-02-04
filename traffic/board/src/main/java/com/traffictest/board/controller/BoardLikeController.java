@@ -35,4 +35,8 @@ public class BoardLikeController {
     public void togglePublish(@RequestParam Long boardId, @RequestParam Long userId){
         boardLikeService.switchLikeStateWithPublish(boardId,userId);
     }
+    @GetMapping("/toggle-async-publish")
+    public void togglePublishAsync(@RequestParam Long boardId, @RequestParam Long userId){
+        boardLikeService.switchLikeStateWithAsyncPublish(boardId,userId);
+    }
 }
