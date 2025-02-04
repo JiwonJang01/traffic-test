@@ -1,5 +1,6 @@
 package com.traffictest.board.service;
 
+import com.traffictest.board.publisher.BoardLikeChangePublisher;
 import com.traffictest.entity.Board;
 import com.traffictest.entity.BoardLike;
 import com.traffictest.entity.BoardLikeRepository;
@@ -19,6 +20,7 @@ public class BoardLikeService {
 
     private final BoardRepository boardRepository;
     private final BoardLikeRepository boardLikeRepository;
+    private final BoardLikeChangePublisher publisher;
 
     public void switchLikeState(Long boardId, Long userId) {
         Optional<BoardLike> boardLikeOptional =
@@ -90,5 +92,27 @@ public class BoardLikeService {
             boardLikeRepository.save(BoardLike.builder()
                     .board(board).writerId(userId).build());
         }
+    }
+
+    public void switchLikeStateWithPublish(Long boardId, Long userId) {
+
+        Optional<BoardLike> boardLikeOptional =
+                boardLikeRepository.findByBoard_IdAndWriterId(boardId, userId);
+        // 좋아요 -;
+        if (boardLikeOptional.isPresent()) {
+            BoardLike boardLike = boardLikeOptional.get();
+            boardLikeRepository.delete(boardLike);
+        } else {
+            Optional<Board> boardOptional = boardRepository.findById(boardId);
+            if (boardOptional.isEmpty()) {
+                log.error("Not found boardId");
+                return;
+            }
+            Board board = boardOptional.get();
+            boardLikeRepository.save(BoardLike.builder()
+                    .board(board).writerId(userId).build());
+        }
+        publisher.publish(boardId);
+
     }
 }

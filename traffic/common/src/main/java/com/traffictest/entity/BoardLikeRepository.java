@@ -1,7 +1,6 @@
 package com.traffictest.entity;
 
 import jakarta.persistence.LockModeType;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +15,5 @@ public interface BoardLikeRepository extends JpaRepository<BoardLike, Long> {
 
     Optional<BoardLike> findByBoard_IdAndWriterId(long boardId, long writerId);
 
+    int countByBoard_Id(long boardId);
 }
