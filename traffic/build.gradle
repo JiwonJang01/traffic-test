@@ -41,6 +41,22 @@ subprojects {
 		implementation 'org.springframework.boot:spring-boot-starter'
 		implementation 'org.springframework.boot:spring-boot-starter-web'
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+		implementation 'com.querydsl:querydsl-jpa:5.1.0'
+
+		annotationProcessor 'com.querydsl:querydsl-apt:5.1.0:jakarta'
+		annotationProcessor 'jakarta.annotation:jakarta.annotation-api:3.0.0'
+		annotationProcessor 'jakarta.persistence:jakarta.persistence-api:3.2.0'
+
+		implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5-jakarta'
+
+		implementation 'io.micrometer:micrometer-registry-prometheus'
+		implementation 'org.springframework.boot:spring-boot-starter-actuator'
+		implementation 'org.mariadb.jdbc:mariadb-java-client'
+
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+
 	}
 
 	test {
