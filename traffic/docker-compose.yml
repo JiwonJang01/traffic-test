@@ -19,6 +19,11 @@ services:
       - traffic-network
     depends_on:
       - traffic-db
+    environment:
+      - SPRING_JPA_PROPERTIES_HIBERNATE_ENTITY_MANAGER_FACTORY_INTERFACE=jakarta.persistence.EntityManagerFactory
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=health,info,prometheus,metrics
+      - MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED=true
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
     deploy:
       resources:
         limits:
@@ -45,6 +50,11 @@ services:
       - traffic-network
     depends_on:
       - traffic-db
+    environment:
+      - SPRING_JPA_PROPERTIES_HIBERNATE_ENTITY_MANAGER_FACTORY_INTERFACE=jakarta.persistence.EntityManagerFactory
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=health,info,prometheus,metrics
+      - MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED=true
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
     deploy:
       resources:
         limits:
