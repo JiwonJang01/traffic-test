@@ -46,6 +46,7 @@ subprojects {
 		implementation 'org.springframework.boot:spring-boot-starter-web'
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+		implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 		implementation('com.querydsl:querydsl-jpa:5.1.0:jakarta') {
 			exclude group: 'javax.persistence'
 		}
